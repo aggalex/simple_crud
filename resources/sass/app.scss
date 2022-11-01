@@ -1,0 +1,66 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+//@import 'bootstrap/scss/bootstrap';
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Nunito", sans-serif;
+}
+
+input {
+    transition: ease-in-out;
+    transition-duration: 200ms;
+    border: none;
+    border-bottom: 2px solid white;
+    background: transparent;
+    padding: 10px;
+}
+
+input::placeholder {
+    transition: ease-in-out;
+    transition-duration: 200ms;
+}
+
+input:focus::placeholder {
+    color: $accent;
+}
+
+input:focus {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid $accent;
+}
+
+button {
+    transition: ease-in-out;
+    transition-duration: 200ms;
+    padding: 10px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}
+
+button.suggested {
+    background-color: $accent-dark;
+}
+
+button:hover {
+    background: $accent;
+}
+
+.account-popup {
+    position: absolute;
+    top: $nav-height;
+    right: 0;
+    background-color: $secondary;
+    border-bottom-left-radius: 5px;
+}
