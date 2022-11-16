@@ -1,31 +1,33 @@
-import {createStore} from "vuex";
+import {createStore, Store, useStore as baseUseStore} from "vuex";
 import {SERVER} from "../constants";
-import {Login} from "../model/user/user";
-import {Factory} from "../model/user/mock";
+import {LoggedOut, Login, User} from "../model/user/user";
+import {actions} from "../model/user/rest";
+import {FactoryPipelines, ObjectMapper} from "../utils/utils";
+import {InjectionKey} from "vue";
 
-export default createStore({
+export const store = createStore<User>({
+    strict: true,
     state() {
-        return {
-            user: null,
-            error: null
+        return {...LoggedOut}
+    },
+    getters: {
+        isLoggedIn(state) {
+            return state.id >= 0
         }
     },
     mutations: {
-        login(state, cred: Login) {
-            state.error = null;
-            try {
-                state.user = Factory.login(cred);
-            } catch (e) {
-                state.error = e;
-            }
-        },
-        logout(state, cred: Login) {
-            state.error = null;
-            try {
-                Factory.logout();
-            } catch (e) {
-                state.error = e;
-            }
+        setUser(state, user: User) {
+            console.log("mutating: ", user)
+            Object.keys(user)
+                .forEach(key => store.state[key] = user[key])
+
         }
-    }
-});
+    },
+    actions
+})
+
+export const key: InjectionKey<Store<User>> = Symbol();
+
+export function useStore() {
+    return baseUseStore(key)
+}

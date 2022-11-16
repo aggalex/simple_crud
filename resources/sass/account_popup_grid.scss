@@ -1,0 +1,16 @@
+.grid {
+    display: grid;
+    row-gap: 1ch;
+    column-gap: 1ch;
+}
+
+input {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+button {
+    margin-top: 1ch;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}

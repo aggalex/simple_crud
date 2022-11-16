@@ -15,12 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+function initView () {
     JavaScript::put([
         'user' => Auth::user()
     ]);
     return view('welcome');
-});
+}
+
+Route::get('/', fn () => initView());
+Route::get('/view/{route?}', fn ($_ = null) => initView());
+
 
 Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'read'])
     ->middleware('auth');

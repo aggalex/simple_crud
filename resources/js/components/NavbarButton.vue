@@ -1,9 +1,9 @@
 <template>
-    <li :class="(href || clickable)? 'enabled': 'disabled'">
-        <a class="contents" :href="href" v-if="href">
+    <li :class="(props.href || props.clickable)? 'enabled': 'disabled'">
+        <a class="contents" :href="props.href" v-if="props.href">
             <slot/>
         </a>
-        <button class="contents" @click="$emit('click')" v-else-if="clickable">
+        <button class="contents" @click="$emit('click')" v-else-if="props.clickable">
             <slot/>
         </button>
         <div class="contents" v-else>
@@ -12,15 +12,12 @@
     </li>
 </template>
 
-<script>
-export default {
-    name: "TitlebarButton",
-    props: {
-        href: String,
-        clickable: Boolean
-    },
-    emits: ['click']
-}
+<script setup>
+defineEmits(['click'])
+let props = defineProps({
+    href: String,
+    clickable: Boolean
+})
 </script>
 
 <style scoped lang="scss">

@@ -12,12 +12,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "NavbarComponent"
-}
-</script>
-
 <style scoped lang="scss">
 @import "../../sass/variables";
 
@@ -52,6 +46,7 @@ ul, .section {
 }
 
 .navbar {
+    position: sticky;
     background-color: $secondary;
 }
 </style>

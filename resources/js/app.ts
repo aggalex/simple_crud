@@ -7,7 +7,13 @@
 import './bootstrap';
 import { createApp } from 'vue';
 import App from './App.vue';
-import users from "./model/user/user";
+import * as UserStore from "./stores/UserStore";
+import * as TaskStore from "./stores/TaskStore";
+import router from "./router";
+import en from "javascript-time-ago/locale/en-GB"
+import TimeAgo from "javascript-time-ago";
+TimeAgo.addLocale(en)
+
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -27,9 +33,9 @@ app.component('app', App);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-    app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-});
+// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
+//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
+// });
 
 /**
  * Finally, we will attach the application instance to a HTML element with
@@ -37,5 +43,7 @@ Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, 
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
+app.use(UserStore.store, UserStore.key);
+app.use(TaskStore.store, TaskStore.key);
+app.use(router);
 app.mount('#app');
-app.use(users);

@@ -5,21 +5,25 @@
                 account_circle
             </span>
             <slot>
-                Login
+                <span v-if="user">
+                    {{ user }}
+                </span>
+                <span v-else>
+                    Login
+                </span>
             </slot>
         </div>
     </NavbarButton>
 </template>
 
-<script>
-export default {
-    name: "AccountButton",
-    emits: ['click']
-}
-</script>
-
 <script setup>
 import NavbarButton from "./NavbarButton.vue";
+import {computed} from "vue";
+import {useStore} from "../stores/UserStore";
+
+let store = useStore();
+let user = computed(() => store.state.username);
+defineEmits(['click']);
 </script>
 
 <style scoped>

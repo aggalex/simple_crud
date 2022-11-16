@@ -8,24 +8,30 @@
 </template>
 
 <script setup lang="ts">
-import {defineState} from "../utils";
+import {reactive} from "vue";
+import {useStore} from "../stores/UserStore";
 
-let username: string;
-let email: string;
-let password: string;
-let passwordConf: string;
-
-let state = defineState({
-    passwordClass: ""
+let state = reactive({
+    passwordClass: "",
+    username: "",
+    email: "",
+    password: "",
+    passwordConf: ""
 });
 
+let store = useStore()
+
 function submit() {
-    if (password != passwordConf) {
+    if (state.password != state.passwordConf) {
         state.passwordClass = "wrong";
         return;
     }
 
-    console.log("Registering");
+    store.dispatch('register', {
+        username: state.username,
+        email: state.email,
+        password: state.password,
+    })
 }
 
 </script>

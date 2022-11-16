@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | View to Bind JavaScript Vars To
+    | views to Bind JavaScript Vars To
     |--------------------------------------------------------------------------
     |
     | Set this value to the name of the view (or partial) that
