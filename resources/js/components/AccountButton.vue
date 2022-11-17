@@ -22,7 +22,7 @@ import {computed} from "vue";
 import {useStore} from "../stores/UserStore";
 
 let store = useStore();
-let user = computed(() => store.state.username);
+let user = computed(() => store.state.name);
 defineEmits(['click']);
 </script>
 

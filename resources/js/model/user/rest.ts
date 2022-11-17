@@ -1,31 +1,38 @@
 import {LoggedOut, UserActions} from "./user";
 import {SERVER} from "../../constants";
-import {request} from "../../utils/utils";
+import {getResponseJSON, getResponseOk, request} from "../../utils/utils";
+import router from "../../router";
 
 export const actions: UserActions = {
-    login({ commit }, cred) {
-        request(SERVER + "/login", {
+    async login({ commit }, cred) {
+        await request(SERVER + "/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(cred)
         })
-            .then(res => res.json())
-            .then(user => commit('setUser', user))
-            .catch(err => console.error(err))
+            .then(getResponseOk)
+
+        await this.dispatch('updateProfile')
+
+        await router.push({
+            path: '/'
+        })
     },
 
     logout({ commit }) {
         request(SERVER + "/logout", {
-            method: 'GET'
+            method: 'POST'
         })
-            .then(res => res.ok)
+            .then(getResponseOk)
             .then(_ => commit('setUser', LoggedOut))
             .catch(err => console.error(err))
     },
 
-    register(state, cred) {
+    register({ commit }, cred) {
+        cred['password_confirmation'] = cred.passwordConfirmation
+        delete cred.passwordConfirmation
         request(SERVER + "/register", {
             method: 'POST',
             headers: {
@@ -33,8 +40,20 @@ export const actions: UserActions = {
             },
             body: JSON.stringify(cred)
         })
-            .then(res => res.ok)
+            .then(getResponseOk)
             .catch(err => console.error(err))
+    },
+
+    updateProfile({ commit }) {
+        fetch(SERVER + "/profile", {
+            method: 'GET',
+        })
+            .then(getResponseJSON)
+            .then(user => commit('setUser', user))
+            .catch(err => {
+                console.error(err)
+                commit('setUser', LoggedOut)
+            })
     }
 
 }

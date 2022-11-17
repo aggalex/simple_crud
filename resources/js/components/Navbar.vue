@@ -46,7 +46,9 @@ ul, .section {
 }
 
 .navbar {
-    position: sticky;
+    top: 0;
+    width: 100vw;
+    position: absolute;
     background-color: $secondary;
 }
 </style>

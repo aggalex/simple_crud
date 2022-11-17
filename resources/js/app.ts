@@ -10,10 +10,9 @@ import App from './App.vue';
 import * as UserStore from "./stores/UserStore";
 import * as TaskStore from "./stores/TaskStore";
 import router from "./router";
-import en from "javascript-time-ago/locale/en-GB"
+import en from 'javascript-time-ago/locale/en';
 import TimeAgo from "javascript-time-ago";
 TimeAgo.addLocale(en)
-
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -33,9 +32,11 @@ app.component('app', App);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
+// @ts-ignore
+Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
+    // @ts-ignore
+    app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
+});
 
 /**
  * Finally, we will attach the application instance to a HTML element with

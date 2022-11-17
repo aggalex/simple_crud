@@ -15,26 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-function initView () {
-    JavaScript::put([
-        'user' => Auth::user()
-    ]);
-    return view('welcome');
-}
-
-Route::get('/', fn () => initView());
-Route::get('/view/{route?}', fn ($_ = null) => initView());
+Route::get('/', fn () => view('welcome'));
+Route::get('/view/{route?}', fn () => view('welcome'));
 
 
-Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'read'])
-    ->middleware('auth');
-Route::post('/tasks', [\App\Http\Controllers\TaskController::class, 'create'])
-    ->middleware('auth');
-Route::patch('/tasks', [\App\Http\Controllers\TaskController::class, 'update'])
-    ->middleware('auth');
-Route::delete('/tasks', [\App\Http\Controllers\TaskController::class, 'delete'])
-    ->middleware('auth');
+Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'read']);
+Route::post('/tasks', [\App\Http\Controllers\TaskController::class, 'create']);
+Route::patch('/tasks', [\App\Http\Controllers\TaskController::class, 'update']);
+Route::delete('/tasks', [\App\Http\Controllers\TaskController::class, 'delete']);
 
 Auth::routes();
+Route::get('/profile', [\App\Http\Controllers\Auth\ProfileController::class, 'profile']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

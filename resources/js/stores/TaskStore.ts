@@ -1,6 +1,6 @@
 import {createStore, Store, useStore as baseUseStore} from "vuex";
 import {Task} from "../model/tasks/tasks";
-import {actions} from "../model/tasks/mock";
+import {actions} from "../model/tasks/rest";
 import {InjectionKey} from "vue";
 import {User} from "../model/user/user";
 
@@ -18,6 +18,7 @@ export const store = createStore({
         set(state, tasks: Task[] | Task) {
             if (!Array.isArray(tasks))
                 tasks = [tasks]
+            console.log(tasks)
             tasks.forEach(task => state.tasks.set(task.id, task))
         },
         remove(state, id: number[] | number) {

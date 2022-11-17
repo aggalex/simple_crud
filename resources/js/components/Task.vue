@@ -55,6 +55,10 @@ const task = computed(() => store.state.tasks.get(props.id))
 const timeAgo = new TimeAgo('en-GB')
 
 function formatDate(date: Date) {
+    console.log(isNaN(date))
+    if (isNaN(date)) {
+        return "<undefined>"
+    }
     return timeAgo.format(date)
 }
 

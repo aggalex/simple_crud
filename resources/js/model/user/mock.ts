@@ -1,7 +1,11 @@
 import type {Login, Register, User, UserActions} from "./user";
 import {LoggedOut} from "./user";
 
-const mockStore: {[email: string]: (User & Register)} = {}
+interface StoreEntry extends  User {
+    password: string
+}
+
+const mockStore: {[email: string]: StoreEntry } = {}
 
 export const actions: UserActions = {
     async login({ commit }, cred: Login) {
@@ -27,8 +31,11 @@ export const actions: UserActions = {
         mockStore[cred.email] = ({
             id: Object.keys(mockStore).length + 1,
             email: cred.email,
-            username: cred.username,
+            name: cred.name,
             password: cred.password
         })
+    },
+
+    updateProfile({ commit }) {
     }
 }

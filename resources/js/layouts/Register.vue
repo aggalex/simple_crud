@@ -1,7 +1,9 @@
 <template>
-    <div class="grid">
+    <div class="flexbox">
+        <h1>...Or Register!</h1>
+
         <input name="email" v-model="state.email" placeholder="email" type="email"/>
-        <input name="email" v-model="state.username" placeholder="username"/>
+        <input name="username" v-model="state.name" placeholder="username"/>
         <input name="password" v-model="state.password" placeholder="password" type="password"/>
         <input name="password" v-model="state.passwordConf" placeholder="password" type="password"/>
         <button
@@ -19,7 +21,7 @@ import {useStore} from "../stores/UserStore";
 
 let state = reactive({
     email: "",
-    username: "",
+    name: "",
     password: "",
     passwordConf: ""
 })
@@ -28,7 +30,7 @@ let formIsValid = computed(() =>
     state.passwordConf === state.password &&
     state.password !== "" &&
     state.email !== "" &&
-    state.username !== "")
+    state.name !== "")
 
 let store = useStore()
 
@@ -38,14 +40,14 @@ function register() {
 
     store.dispatch('register', {
         email: state.email,
-        username: state.username,
-        password: state.password
+        name: state.name,
+        password: state.password,
+        passwordConfirmation: state.passwordConf
     })
 }
 
 </script>
 
 <style scoped lang="scss">
-@import "../../sass/account_popup_grid.scss";
-
+@import "../../sass/account_layout_flexbox";
 </style>

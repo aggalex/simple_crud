@@ -14,6 +14,15 @@ export interface Task {
     edited: Date
 }
 
+export function taskFromBackend(task: any): Task {
+    return {
+        name: task.name,
+        id: task.id,
+        created: new Date(task.created_at),
+        edited: new Date(task.updated_at)
+    }
+}
+
 interface VuexState {
     commit: Function
 }
@@ -22,5 +31,5 @@ export interface TaskActions extends ActionTree<any, any> {
     init(state: VuexState);
     create(state: VuexState, task: string);
     update(state: VuexState, task: UpdateTask)
-    delete(state: VuexState, ids: number);
+    delete(state: VuexState, ids: number[] | number);
 }

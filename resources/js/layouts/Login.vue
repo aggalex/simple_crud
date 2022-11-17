@@ -1,5 +1,6 @@
 <template>
-    <div class="grid">
+    <div class="flexbox">
+        <h1>Login...</h1>
         <input name="email" v-model="state.email" placeholder="email" type="email"/>
         <input name="password" v-model="state.password" placeholder="password" type="password"/>
         <button
@@ -36,6 +37,6 @@ function login() {
 </script>
 
 <style scoped lang="scss">
-@import "../../sass/account_popup_grid.scss";
+@import "../../sass/account_layout_flexbox";
 
 </style>

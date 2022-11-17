@@ -22,6 +22,7 @@
         "ts-debounce": "^4.0.0",
         "vite-router": "^1.0.1",
         "vue-router": "^4.1.6",
+        "vue2-timeago": "^3.0.2",
         "vuex": "^4.1.0"
     }
 }

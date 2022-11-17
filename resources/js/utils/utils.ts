@@ -62,6 +62,30 @@ export type FactoryPipelines<F extends Factory> = Omit<F, keyof Factory>
 
 const _request = debounce(fetch, 500)
 
-export const request = async (url: RequestInfo | URL, init?: RequestInit) =>
-    _request(url, init)
+export async function request (url: RequestInfo | URL, init?: RequestInit) {
+    init.headers = init.headers || {}
+    init.headers['X-CSRF-TOKEN'] = (document.head
+        .querySelector("meta[name = 'csrf-token']") as HTMLMetaElement)
+        .content
+    return _request(url, init)
         .then(res => res)
+}
+
+export async function getResponseOk(response: Response): Promise<void> {
+    if (response.ok) {
+        return
+    }
+    return Promise.reject(response)
+}
+
+export async function getResponseJSON(response: Response): Promise<any> {
+    return getResponseOk(response)
+        .then(() => response.json())
+}
+
+export function sideEffect<T>(predicate: { (arg: T): any }): { (arg: T): T } {
+    return (i: T) => {
+        predicate(i);
+        return i
+    }
+}

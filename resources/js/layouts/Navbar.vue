@@ -1,14 +1,12 @@
 <template>
-    <AccountPopup title="login" :hidden="state.hidden" :page="page"/>
+    <AccountPopup title="login" :hidden="state.hidden"/>
     <Navbar>
         <template #start>
-            <NavbarButton href="#">Home</NavbarButton>
-            <NavbarButton href="#">About</NavbarButton>
-            <NavbarButton>Disabled</NavbarButton>
+            <NavbarButton href="/">Home</NavbarButton>
+            <NavbarButton href="/view/about">About</NavbarButton>
         </template>
         <template #end>
-            <AccountButton @click="login"/>
-            <NavbarButton clickable @click="register" v-if="!isLoggedIn">Register</NavbarButton>
+            <AccountButton v-if="isLoggedIn" @click="showPopup"/>
         </template>
     </Navbar>
 </template>
@@ -20,30 +18,17 @@ import AccountButton from "../components/AccountButton.vue";
 import {computed, reactive} from "vue";
 import {useStore} from "../stores/UserStore";
 
-let state = reactive({
-    hidden: true,
-    register: false
+const state = reactive({
+    hidden: true
 })
 
 let store = useStore()
 let isLoggedIn = computed(() => store.getters.isLoggedIn)
-let page = computed(() => {
-    if (isLoggedIn.value) {
-        return "account menu"
-    } else if (state.register) {
-        return "register"
-    } else {
-        return "login"
-    }
-})
 
-function login() {
-    state.hidden = !state.hidden && !state.register;
-    state.register = false;
+store.subscribe(() => state.hidden = true)
+
+function showPopup () {
+    state.hidden = !state.hidden
 }
 
-function register() {
-    state.hidden = !state.hidden && state.register;
-    state.register = true;
-}
 </script>

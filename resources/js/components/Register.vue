@@ -13,7 +13,7 @@ import {useStore} from "../stores/UserStore";
 
 let state = reactive({
     passwordClass: "",
-    username: "",
+    name: "",
     email: "",
     password: "",
     passwordConf: ""
@@ -28,7 +28,7 @@ function submit() {
     }
 
     store.dispatch('register', {
-        username: state.username,
+        name: state.name,
         email: state.email,
         password: state.password,
     })

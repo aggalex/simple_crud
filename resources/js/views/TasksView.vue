@@ -15,6 +15,8 @@ import {computed, onMounted, reactive} from "vue";
 import {useStore} from "../stores/TaskStore";
 import Task from "../components/Task.vue";
 import BottomBar from "../components/BottomBar.vue";
+import {onBeforeRouteLeave, onBeforeRouteUpdate} from "vue-router";
+import {store} from "../stores/UserStore"
 
 const store = useStore()
 onMounted(() => store.dispatch('init'))

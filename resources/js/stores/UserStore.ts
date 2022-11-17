@@ -3,7 +3,8 @@ import {SERVER} from "../constants";
 import {LoggedOut, Login, User} from "../model/user/user";
 import {actions} from "../model/user/rest";
 import {FactoryPipelines, ObjectMapper} from "../utils/utils";
-import {InjectionKey} from "vue";
+import {computed, InjectionKey} from "vue";
+import router from "../router";
 
 export const store = createStore<User>({
     strict: true,
@@ -20,7 +21,6 @@ export const store = createStore<User>({
             console.log("mutating: ", user)
             Object.keys(user)
                 .forEach(key => store.state[key] = user[key])
-
         }
     },
     actions

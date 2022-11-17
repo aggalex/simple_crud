@@ -2,9 +2,12 @@
     <div class="account-popup">
         <Revealer :hidden="hidden">
             <div class="contents">
-                <Login v-if="page === 'login'"/>
-                <Register v-else-if="page === 'register'"/>
-                <AccountMenu v-else/>
+                <div>
+                    <div class="menu">
+                        <button @click="logout">Log out</button>
+                        <button>Manage Account</button>
+                    </div>
+                </div>
             </div>
         </Revealer>
     </div>
@@ -17,11 +20,17 @@ import Login from "./Login.vue";
 import Register from "./Register.vue";
 import AccountMenu from "./AccountMenu.vue";
 import {reactive} from "vue";
+import {useStore} from "../stores/UserStore";
 
 let props = defineProps({
     hidden: Boolean,
-    page: String,
 })
+
+let store = useStore()
+
+function logout() {
+    store.dispatch('logout')
+}
 </script>
 
 <style scoped>

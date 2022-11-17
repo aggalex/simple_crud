@@ -7,18 +7,19 @@ export interface Login {
 }
 
 export interface Register extends Login {
-    username: string
+    name: string,
+    passwordConfirmation: string
 }
 
 export interface User {
     id: number | null,
-    username: string | null,
+    name: string | null,
     email: string | null,
 }
 
 export const LoggedOut: User = {
     id: -1,
-    username: "",
+    name: "",
     email: ""
 }
 
@@ -27,7 +28,8 @@ interface VuexState {
 }
 
 export interface UserActions extends ActionTree<User, User> {
-    register(state: VuexState, cred: Register)
+    register(state: VuexState, cred: Register),
+    updateProfile(state: VuexState),
     login(state: VuexState, cred: Login),
     logout(state: VuexState),
 }

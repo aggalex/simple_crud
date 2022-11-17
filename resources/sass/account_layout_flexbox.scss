@@ -1,0 +1,11 @@
+.flexbox {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1ch;
+    column-gap: 1ch;
+    align-items: stretch;
+}
+
+button {
+    margin-top: 1ch;
+}
